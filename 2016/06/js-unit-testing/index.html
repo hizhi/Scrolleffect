@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>前端单元测试 · Pupa</title><meta name="description" content="前端单元测试 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">前端单元测试</h1><div class="entry-description"><p>这是我在公司组内的一次 Talk。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, June 14th 2016, 10:21:20 pm" class="updated">Jun 14, 2016</time><em class="post-count">603 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><img src="/blog/2016/06/js-unit-testing/ill.png" alt="ill.png" title="">
+<p><a href="https://github.com/xwartz/pupa/blob/master/talk/js%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95.key">Key</a>。</p>
+<h3 id="测试框架"><a href="#测试框架" class="headerlink" title="测试框架"></a>测试框架</h3><ul>
+<li><p>Qunit</p>
+</li>
+<li><p>Jasmine</p>
+</li>
+<li><p>Mocha</p>
+</li>
+<li><p>AVA</p>
+</li>
+</ul>
+<h3 id="Mocha-Chai"><a href="#Mocha-Chai" class="headerlink" title="Mocha + Chai"></a>Mocha + Chai</h3><ul>
+<li><code>describe</code></li>
+<li><code>it</code></li>
+</ul>
+<h3 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h3><p>关键字 <code>done</code></p>
+<p><a href="https://github.com/domenic/chai-as-promised">chai-as-promised</a></p>
+<p><a href="https://github.com/prodatakey/dirty-chai">dirty-chai</a></p>
+<h3 id="Mocha-Istanbul"><a href="#Mocha-Istanbul" class="headerlink" title="Mocha + Istanbul"></a>Mocha + Istanbul</h3><p><code>istanbul cover _mocha</code></p>
+<h3 id="Karma"><a href="#Karma" class="headerlink" title="Karma"></a>Karma</h3><ul>
+<li><p>在真实的浏览器中测试 <code>JavaScript</code> 代码</p>
+</li>
+<li><p>在多种不同的（桌面、移动、平板等）浏览器中测试 <code>JavaScript</code> 代码</p>
+</li>
+<li><p>使用 <code>Istanbul</code> 自动生产测试覆盖报告</p>
+</li>
+</ul>
+<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><ul>
+<li><p>Travis-ci</p>
+</li>
+<li><p>Git Hook (pre-commit)</p>
+</li>
+<li><p>Jenkins</p>
+</li>
+</ul>
+<h3 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h3><ul>
+<li><p>Webpakc + Mocha + Karma</p>
+</li>
+<li><p>Mock</p>
+</li>
+<li><p>UI组件测试</p>
+</li>
+</ul>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://zhuanlan.zhihu.com/p/19590189">关于前端开发谈谈单元测试</a><br><a href="https://www.zhihu.com/question/29922082">如何进行前端测试</a><br><a href="http://fex.baidu.com/blog/2015/07/front-end-test/">前端自动化测试探索</a><br><a href="http://qunitjs.com/">Qunit</a><br><a href="https://github.com/jasmine/jasmine">Jasmine</a><br><a href="https://github.com/avajs/ava">AVA</a><br><a href="http://mochajs.org/">Mocha</a><br><a href="http://chaijs.com/">Chai</a><br><a href="https://github.com/gotwarlost/istanbul">Istanbul</a><br><a href="https://github.com/karma-runner/karma">Karma</a><br><a href="https://github.com/ariya/phantomjs">Phantomjs</a><br><a href="https://travis-ci.org">Travis-ci</a><br><a href="https://git-scm.com/book/zh/v2/%E8%87%AA%E5%AE%9A%E4%B9%89-Git-Git-%E9%92%A9%E5%AD%90">Git Hook</a><br><a href="https://jenkins.io/">Jenkins</a><br><a href="https://github.com/vuejs/vue">Vue</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/前端工程/" class="tag">前端工程</a><a href="/blog/tags/单元测试/" class="tag">单元测试</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/06/js-test-with-webpack-karma-mocha/" class="previous">webpack + karma + mocha + es6 编写单元测试</a><a href="/blog/2016/06/about-blog/" class="next">关于博客</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

@@ -1,4 +1,0 @@
-Scrolleffect
-============
-
-scroll transition

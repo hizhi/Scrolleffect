@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>读《图解HTTP》 · Pupa</title><meta name="description" content="读《图解HTTP》 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">读《图解HTTP》</h1><div class="entry-description"><p>学习 HTTP。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Thursday, July 7th 2016, 3:32:27 pm" class="updated">Jul 7, 2016</time><em class="post-count">289 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>占坑，持续更新中…</p>
+<p><code>Cache-Control</code>: <code>no-cache</code> 和 <code>Cache-Control</code>: <code>no-store</code> 的差别</p>
+<p><code>no-cache</code> 其实并不是字面意思上的不缓存，事实上 <code>no-cache</code> 代表不缓存过期的资源，缓存会向源服务器进行有效期确认后处理资源。</p>
+<p><code>no-store</code> 才是真正的不进行缓存。</p>
+<h2 id="HTTP-响应状态码"><a href="#HTTP-响应状态码" class="headerlink" title="HTTP 响应状态码"></a>HTTP 响应状态码</h2><h3 id="总图"><a href="#总图" class="headerlink" title="总图"></a>总图</h3><img src="/blog/2016/07/reading-http/code1.png" alt="code1.png" title="">
+<h3 id="各个状态分析"><a href="#各个状态分析" class="headerlink" title="各个状态分析"></a>各个状态分析</h3><img src="/blog/2016/07/reading-http/code2.png" alt="code2.png" title="">
+<img src="/blog/2016/07/reading-http/code3.png" alt="code3.png" title="">
+<img src="/blog/2016/07/reading-http/code4.png" alt="code4.png" title="">
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.zcfy.cc/article/choosing-an-http-status-code-stop-making-it-hard-8211-racksburg-904.html">选择一个 HTTP 状态码不再是一件难事 – Racksburg</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/books/" class="tag">books</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/07/keng/" class="previous">没那么简单</a><a href="/blog/2016/07/dali/" class="next">大理</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

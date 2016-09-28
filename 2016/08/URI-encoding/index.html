@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>URL 编码 · Pupa</title><meta name="description" content="URL 编码 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div itemprop="image" style="background-image: url(http://ww4.sinaimg.cn/large/65e4f1e6gw1f7ipb9exhwj21kw0y8wg7.jpg)" class="entry-cover"></div><div class="container"><div class="entry-header"><h1 class="entry-title">URL 编码</h1><div class="entry-description"><p><code>URL</code> 编码，此前只是一知半解，所以就踩到坑了，故此一记。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Saturday, August 20th 2016, 5:59:04 pm" class="updated">Aug 20, 2016</time><em class="post-count">1,510 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><h3 id="URI-与-URL"><a href="#URI-与-URL" class="headerlink" title="URI 与 URL"></a><code>URI</code> 与 <code>URL</code></h3><p><code>URI</code>：(Uniform Resource Identifier 的缩写，统一资源标识符)。</p>
+<p><code>URL</code>：(Uniform Resource Locator 的缩写，统一资源定位符)。</p>
+<h5 id="关系："><a href="#关系：" class="headerlink" title="关系："></a>关系：</h5><p><code>URI</code> 属于 <code>URL</code> 更低层次的抽象，一种字符串文本标准。</p>
+<p>二者的区别在于，<code>URI</code> 表示请求服务器的路径，定义这么一个资源。而 <code>URL</code> 同时说明要如何访问这个资源（<a href="http://）。">http://）。</a></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><blockquote>
+<p>由于融合 xx界 和 xx街 的业务，前者的提现功能通过 <code>iframe</code> 加载后者的提现页面来完成。<br>此时，会将前者的 <code>userId</code> 通过 <code>rsa</code> 加密之后拼接到 <code>URL</code> 中，<br>后者获取 <code>userId</code> 之后会与后端做些交互。</p>
+</blockquote>
+<p>首先，简单将 <code>URL</code> 表示为 “<a href="http://127.0.0.1:8043/wallet/withdraw?userId=Exft+f4&quot;，">http://127.0.0.1:8043/wallet/withdraw?userId=Exft+f4&quot;，</a><br>那么要获取的 <code>userId</code> 就是 <code>Exft+f4</code>。</p>
+<p>在测试的时候，发现有些账号没有问题，有些账号出现问题，感觉是一个偶然性的问题，然后继续追踪。</p>
+<p>首先查看日志，确定 <code>userId</code> 字段出现问题，存在账号 <code>userId</code> 字段对应不上，解密错误。</p>
+<p><code>Exft+f4</code> 中的 <code>+</code> 被转义成了 <code>空格</code>，也就是变成了 <code>Exft f4</code>，<br>这就很奇怪了，我明明直接在控制台获取的 <code>userId</code> 就是 <code>Exft+f4</code> 啊。</p>
+<p>然后打开 <code>Chrome Network</code> 查看请求发现，<code>query</code> 被自动转义了，如下图</p>
+<p><img src="./encode.png" alt=""></p>
+<p>也就是当服务器获取 <code>query string</code> 的时候(PS: 这里使用后端 <code>Java</code> 提供的方法，获取 <code>userId</code> 并调用 <code>Java</code> 同步方法渲染页面)，已经不正确了。</p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>既然知道了问题所在，那就简单了。</p>
+<p>首先，看到浏览器中的 <code>view URL encoded</code>，只要切一下，结果就是正确的了。</p>
+<p>原来问题的症结在没有做 <code>encode</code>，所以其实只需要在拼凑 <code>URL</code> 的时候，将 <code>userId</code> 做一下编码就好了。</p>
+<h3 id="encodeURI-和-encodeURIComponent-的区别"><a href="#encodeURI-和-encodeURIComponent-的区别" class="headerlink" title="encodeURI 和 encodeURIComponent 的区别"></a>encodeURI 和 encodeURIComponent 的区别</h3><blockquote>
+<p>The encodeURI() function encodes a Uniform Resource Identifier (URI) by replacing each instance of certain characters by one, two, three, or four escape sequences representing the UTF-8 encoding of the character (will only be four escape sequences for characters composed of two “surrogate” characters).</p>
+<p>The encodeURIComponent() function encodes a Uniform Resource Identifier (URI) component by replacing each instance of certain characters by one, two, three, or four escape sequences representing the UTF-8 encoding of the character (will only be four escape sequences for characters composed of two “surrogate” characters).</p>
+</blockquote>
+<p>也就是 <code>encodeURI</code> 对整个 <code>URI</code> 进行编码，而 <code>encodeURIComponent</code> 是对 <code>URI</code> 的组成部分做编码。</p>
+<p class="tip"><br>  <strong>注意</strong>: 然而事实上不止这么点区别，<code>encodeURI</code> 转义的字符也和 <code>encodeURIComponent</code> 不同。<br></p>
+
+<p><code>encodeURI</code> 不会转义以下字符</p>
+<blockquote>
+<p>1.保留字符: <code>; , / ? : @ &amp; = + $</code><br>  2.非转义的字符: <code>字母 数字 - _ . ! ~ * &#39; ( )</code><br>  3.数字符号 <code>#</code></p>
+</blockquote>
+<p><code>encodeURIComponent</code> 不会转义以下字符</p>
+<blockquote>
+<p>1.非转义的字符: <code>字母 数字 - _ . ! ~ * &#39; ( )</code></p>
+</blockquote>
+<p>以上，<code>encodeURI</code> 无法产生能适用于 <code>HTTP</code> <code>GET</code> 请求的 <code>URI</code>。</p>
+<p>例如对于 <code>XMLHTTPRequests</code>, 因为 <code>&quot;&amp;&quot;</code>, <code>&quot;+&quot;</code>, 和 <code>&quot;=&quot;</code> 不会被编码，然而在 <code>GET</code> 请求中它们是特殊字符，</p>
+<p>所以为了避免服务器收到不可预知的请求，应该使用 <code>encodeURIComponent</code> 进行转义。</p>
+<p>因此，上面的 “<a href="http://127.0.0.1:8043/wallet/withdraw?userId=Exft+f4&quot;，不能简单使用">http://127.0.0.1:8043/wallet/withdraw?userId=Exft+f4&quot;，不能简单使用</a> <code>encodeURI</code> 方法来转义。</p>
+<p>而是应该将 <code>userId</code> 单独使用 <code>encodeURIComponent</code> 进行转义后拼接。</p>
+<p>与 <code>encodeURI</code> 和 <code>encodeURIComponent</code> 对应的解码是 <code>decodeURI</code> 和 <code>decodeURIComponent</code>，<br>因此在获取到 <code>URI</code> 之后只需要解码就可以获取到原值。</p>
+<p>获取 <code>URL</code> 参数的正确姿势：</p>
+<script src="https://gist.github.com/xwartz/12678ec6278e4ff9e0bf892d9db2186f.js"></script>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这本应该是一个早就了解的问题，为何会到现在？</p>
+<p>想了下，大概是以下原因：</p>
+<ol>
+<li>此前工作中 <code>URL</code> 很少是特殊字符的，一般为正常英文字符。</li>
+<li>很少需要获取 <code>URL</code> 上的 <code>query</code> 做再请求的参数，即使作为参数，也是已知的字符。</li>
+<li>框架(库)已经做了转码处理。</li>
+<li>此前只是单纯的调用，对其一知半解。</li>
+</ol>
+<p>所以往后需要注意的是对于任何不可控的字符作为 <code>URL</code> 部分的内容都需要用 <code>encodeURIComponent</code> 进行转义。</p>
+<p>目前工作中遇到常见的场景是手动拼接 <code>URL</code>，比如活动页面的回跳，但是一般也不会出现特殊字符、中文等情况。</p>
+<p>还有一个常见的应该就是搜索了吧，需要使用用户输入的关键字作为 <code>keywords</code>，然而用户输入的字符不可控制，因此必然需要转义。</p>
+<p>写到这时，想起在前公司写的搜索，是否有问题呢？去看下…</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/encodeURI">encodeURI</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">encodeURIComponent</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/code/" class="tag">code</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/09/need-to-plan/" class="previous">Plan</a><a href="/blog/2016/08/redux-src/" class="next">Redux 解析</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

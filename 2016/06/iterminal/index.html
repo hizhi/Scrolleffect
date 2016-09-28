@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>配置 Mac 终端 · Pupa</title><meta name="description" content="配置 Mac 终端 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">配置 Mac 终端</h1><div class="entry-description"><p>每天要对着命令行，当然得搞的漂亮点才行。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Sunday, June 12th 2016, 11:36:59 pm" class="updated">Jun 12, 2016</time><em class="post-count">816 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><img src="/blog/2016/06/iterminal/iterm.png" alt="iterm.png" title="">
+<p>专为自己折腾下命令行。</p>
+<h2 id="iTerm2"><a href="#iTerm2" class="headerlink" title="iTerm2"></a>iTerm2</h2><p>用 Mac 的不装一个对不起自己，关于 iTerm2 的 <a href="http://www.iterm2.com/features.html">Features</a>。</p>
+<h3 id="Solarized"><a href="#Solarized" class="headerlink" title="Solarized"></a>Solarized</h3><p>一款 <code>iTerm2</code> 的颜色主题，下载安装查看<a href="https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized">链接</a>。</p>
+<h2 id="Oh-my-zsh"><a href="#Oh-my-zsh" class="headerlink" title="Oh my zsh"></a>Oh my zsh</h2><blockquote>
+<p>Oh My Zsh is a way of life! Once installed, your terminal prompt will become the talk of the town or your money back! Each time you interact with your command prompt, you’ll be able to take advantage of the hundreds of bundled plugins and pretty themes. Strangers will come up to you in cafés and ask you, “that is amazing. are you some sort of genius?” Finally, you’ll begin to get the sort of attention that you always felt that you deserved. …or maybe you’ll just use the time that you saved to start flossing more often.</p>
+</blockquote>
+<p>详情查看仓库<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>。</p>
+<h3 id="agnoster"><a href="#agnoster" class="headerlink" title="agnoster"></a>agnoster</h3><p>帅气的 <code>Oh my zsh</code> 主题，尤其是箭头，人群中多看了一眼，就用了1年多。</p>
+<p><strong> 使用：编辑 <code>~/.zshrc</code>, 设置 <code>ZSH_THEME=&quot;agnoster&quot;</code>。</strong></p>
+<p>更多主题查看 <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes">themes</a>。</p>
+<h3 id="Powerline-fonts"><a href="#Powerline-fonts" class="headerlink" title="Powerline fonts"></a>Powerline fonts</h3><p>想达到我上图的效果，还需要装字体才行。</p>
+<p>下载安装字体 <a href="https://github.com/powerline/fonts/blob/master/Meslo/Meslo%20LG%20M%20DZ%20Regular%20for%20Powerline.otf">Meslo</a> 之后，打开 <code>iTerm2</code> 的偏好设置字体(iTerm -&gt; preferences -&gt; profiles -&gt; text)。</p>
+<p>把下面两个地方都换成 <code>Menlo</code> 字体</p>
+<ul>
+<li><p>Regular Font -&gt; “Change Font”</p>
+</li>
+<li><p>Non-ASCII Font -&gt; “Change Font”</p>
+</li>
+</ul>
+<h2 id="Shorter-prompt-style"><a href="#Shorter-prompt-style" class="headerlink" title="Shorter prompt style"></a>Shorter prompt style</h2><p>隐藏命令行中的用户名 <code>user@hostname</code>，有时候名字很长总是不爽，而且截图会泄露信息。</p>
+<p>编辑 <code>~/.zshrc</code>, 设置 <code>DEFAULT_USER</code> 为 <code>whoami</code> 命令的输出结果。</p>
+<h2 id="Syntax-highlighting"><a href="#Syntax-highlighting" class="headerlink" title="Syntax highlighting"></a>Syntax highlighting</h2><p>命令行代码高亮插件 <code>zsh-syntax-highlighting</code>。</p>
+<p>安装</p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install zsh-syntax-highlighting</div></pre></td></tr></table></figure>
+<p>编辑 <code>~/.zshrc</code></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh</div></pre></td></tr></table></figure>
+<h2 id="Plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><p>添加 <code>git</code> 插件，编辑 <code>~/.zshrc</code></p>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">plugins=(git)</div></pre></td></tr></table></figure>
+<p>可使用的别名查看 (<a href="https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh">https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh</a>)</p>
+<p>更多插件可查看 <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins</a></p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://gist.github.com/kevin-smets/8568070">iterm2-solarized.md</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/iterm/" class="tag">iterm</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/06/about-blog/" class="previous">关于博客</a><a href="/blog/2016/06/electron-with-hmr/" class="next">在 Electron 中使用模块热替换</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

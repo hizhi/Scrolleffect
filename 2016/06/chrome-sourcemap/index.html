@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Chrome 浏览器的 source-map 功能 · Pupa</title><meta name="description" content="Chrome 浏览器的 source-map 功能 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">Chrome 浏览器的 source-map 功能</h1><div class="entry-description"><p>其实已经很久没有使用 Chrome 的 source-map 功能了。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Thursday, June 16th 2016, 9:22:49 pm" class="updated">Jun 16, 2016</time><em class="post-count">642 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p><code>webpack</code> 非常火，它提供的 <code>HMR</code>(hot module replacement) 功能非常棒，修改代码无需刷新页面。那么在 <code>webpack</code> 出现之前，有什么好的方法呢。</p>
+<p>作为前端开发，<code>Chrome</code> 应该是大家最喜欢的浏览器之一，调试代码非常方便。</p>
+<p>这篇文章主要介绍下，<code>Chrome</code> 浏览器自带的 <code>source-map</code> 功能。</p>
+<p>如果你的项目已经用 <code>webpack</code> 了，那就不太需要使用这个功能了，<code>webpack</code> 提供的 <code>HMR</code> 功能，开发起来很方便。</p>
+<h3 id="添加文件夹到-Workspace"><a href="#添加文件夹到-Workspace" class="headerlink" title="添加文件夹到 Workspace"></a>添加文件夹到 Workspace</h3><p>右键选择 <code>Add Folder to Workspace</code></p>
+<img src="/blog/2016/06/chrome-sourcemap/1.png" alt="1.png" title="">
+<p>并允许访问权限</p>
+<h3 id="建立-Map"><a href="#建立-Map" class="headerlink" title="建立 Map"></a>建立 Map</h3><p>右键选择 <code>Map to Network Resource...</code>，选择对应的文件。</p>
+<img src="/blog/2016/06/chrome-sourcemap/2.png" alt="2.png" title="">
+<p>如此便已有了 <code>source-map</code> 功能</p>
+<p>只需要建立某个 <code>map</code> 的文件，<code>Chrome</code> 会为把整个目录下的文件都建立 <code>map</code> 关系。</p>
+<h3 id="尝试修改"><a href="#尝试修改" class="headerlink" title="尝试修改"></a>尝试修改</h3><p>选择某个文件，修改代码，<code>cmd + s</code> 保存，然后你会发现编辑器里的代码也更新了。</p>
+<p>或者，更新编辑器里的代码，<code>cmd + s</code> 保存，网页中的代码也相应的更新了。</p>
+<p>当然它并没有 <code>webpack</code> 这样的 <code>HMR</code> 功能，如果想看到代码更新后的效果，还是需要刷新页面的。</p>
+<h3 id="真正用途"><a href="#真正用途" class="headerlink" title="真正用途"></a>真正用途</h3><p>可能在对于 <code>js</code> 代码来说以上的 <code>map</code> 用处似乎并不大。</p>
+<p>所以这个功能大多是在修改 <code>css</code> 代码的时候使用，</p>
+<p>你可以直接看着页面，在控制台修改 <code>css</code> 代码就好了，都不需要去修改编辑器里的文件了。</p>
+<p class="tip">Chrome 的这个功能还支持 <code>sass</code>，可以 <code>map</code> 到源代码，如果写 <code>sass</code> 的话，强力推荐。</p>
+
+<p>其实你还可以在控制台删除，增加文件，参考 <a href="https://developer.chrome.com/devtools/docs/workspaces">Workspaces - Persistent authoring in the DevTools</a>。</p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/devTools/" class="tag">devTools</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/06/editorconfig/" class="previous">EditorConfig 介绍</a><a href="/blog/2016/06/js-test-with-webpack-karma-mocha/" class="next">webpack + karma + mocha + es6 编写单元测试</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

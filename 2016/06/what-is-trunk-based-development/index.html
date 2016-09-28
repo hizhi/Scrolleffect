@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>Trunk Based Development · Pupa</title><meta name="description" content="Trunk Based Development - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">Trunk Based Development</h1><div class="entry-description"><p>除了 gitflow 之外的 git 分支管理方式推荐。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, June 21st 2016, 10:38:18 pm" class="updated">Jun 21, 2016</time><em class="post-count">1,455 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>今天在逛 <a href="https://ruby-china.org/">ruby</a> 论坛，看到个帖子 <a href="https://ruby-china.org/topics/29263">GIT 之我见 - 反驳 TW 洞见《GITFLOW 有害论》</a>。<br>然后又点开了 <a href="http://insights.thoughtworkers.org/gitflow-consider-harmful">GITFLOW有害论</a>，挺有意思的讨论。</p>
+<p>具体的讨论可以看看那个帖子和文章的评论，我从文章和讨论中了解到除 <a href="http://nvie.com/posts/a-successful-git-branching-model/">gitflow</a> 之外的分支管理方式，也就是 <a href="http://paulhammant.com/2013/04/05/what-is-trunk-based-development/">Trunk Based Development</a>。</p>
+<p><code>gitflow</code> 方式大家接触应该比较多，介绍的文章也非常多，可以自行了解。</p>
+<p>这篇文章主要介绍下 <a href="http://paulhammant.com/2013/04/05/what-is-trunk-based-development/">Trunk Based Development</a>，提供一个不同的分支管理理念。</p>
+<h3 id="什么是-Trunk-Based-Development"><a href="#什么是-Trunk-Based-Development" class="headerlink" title="什么是 Trunk Based Development"></a>什么是 Trunk Based Development</h3><p><code>Trunk Based Development</code> 和 <code>gitflow</code> 不同之处在于，它的所有开发工作都在 <code>master</code> 分支进行，通过 <a href="http://www.martinfowler.com/articles/continuousIntegration.html">Continuous Integration</a> 确保 <code>master</code> 上的代码随时都是可发布状态的。</p>
+<img src="/blog/2016/06/what-is-trunk-based-development/what_is_trunk.jpg" alt="what_is_trunk.jpg" title="">
+<p>据说 <code>google</code> 和 <code>facebook</code> 一直实践的就是这种方式。</p>
+<h3 id="多个分支"><a href="#多个分支" class="headerlink" title="多个分支"></a>多个分支</h3><p>是的，<code>Trunk Based Development</code> 也存在多个分支。但是 <code>release</code>(只有专门的开发者才拥有<code>release</code>权限) 分支只会短暂存在，每次都会从 <code>master</code> 分支拉出 <code>release</code> 分支进行 <code>release</code> 追踪。</p>
+<p><code>Hotfix</code> 也是从 <code>master</code> 分支 <code>fixed</code> 然后合并到 <code>release</code> 分支，而不是从 <code>release</code> 分支 <code>fixed</code>，然后合并到 <code>master</code>，从而保证 <code>release</code> 分支，不被随意 <code>commit</code>。</p>
+<h3 id="对开发者的要求"><a href="#对开发者的要求" class="headerlink" title="对开发者的要求"></a>对开发者的要求</h3><p>在 <code>master</code> 分支上开发，必然对开发者有更严格的要求。必须确保每一个 <code>commit</code> 不会破坏 <code>master</code> 的构建。</p>
+<p>所以很多公司会使用 <code>pre-commit</code> 的方式，在 <code>commit</code> 时做一个检测。</p>
+<p>开发人员必须培养一个习惯：保证每个 <code>commit</code> 是 ok 的，同步最新的 <code>trunk</code> 分支，以跟分支开始构建，仔细检测更改，然后提交。</p>
+<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><p>什么是持续集成，比如 <code>Jenkins</code>，<code>Travis</code>，每当有 <code>commit</code> 的时候，就跑一遍指令，用来测试、部署。</p>
+<p>持续集成的好处是，可以检测每次提交的影响，可以确保回滚到正确的位置(有历史记录)。</p>
+<h3 id="解决-long-lived-branch"><a href="#解决-long-lived-branch" class="headerlink" title="解决 long lived branch"></a>解决 long lived branch</h3><p><code>gitflow</code> 会将新功能以 <code>feature</code> 分支独立出来开发，如果周期过长，很多时候会造成与其他 <code>feature</code> 分支 <code>merge</code> 冲突。</p>
+<p>如果冲突的地方很多，不得不花更多的时间去解决冲突(这个在本人开发过程中也遇到过)。</p>
+<p>而 <code>TBD</code> 的方式都是在一个分支下干活，所以不会造成过多冲突的情况。</p>
+<p>越早合并解决冲突就越容易。</p>
+<p><code>TBD</code> 提倡使用 <code>feature toggle</code> 的方式来开发新功能。也就是给 <code>feature</code> 设置开关，在正式发布之前，关闭改功能。当需要发布该新功能的时候，去掉开关即可。</p>
+<h3 id="TBD-的好处"><a href="#TBD-的好处" class="headerlink" title="TBD 的好处"></a>TBD 的好处</h3><p>以上，<code>TBD</code> 的好处可以总结为一下几点：</p>
+<ol>
+<li>降低 <code>test</code> 成本，只需要在 <code>master</code> 分支执行测试</li>
+<li>可以随意根据需求，开放关闭新功能，也就是 <code>release</code> 的功能更加可控</li>
+<li>减少 <code>merge</code> 的冲突</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>gitflow</code> 和 <code>TBD</code> 哪个更好，还是需要看团队的情况来使用。<br>目前我使用 <code>gitflow</code> 的方式，也遇到了大面积 <code>merge</code> 冲突的情况，解决方法如下：</p>
+<ol>
+<li>在开发新功能的时候，尽量细分功能，频繁的和 <code>master</code> 合并</li>
+<li>开发大的新功能，和其他团队成员说明，尽量减少大面积的原有代码更改</li>
+<li>某些时候还会拉出一个新分支用于合并其他 <code>feature</code> 分支，查看冲突情况…</li>
+</ol>
+<p><code>gitflow</code> 方式对于多人合作时，重构代码、<code>feature</code> 周期过长的情况确实不利。<br>但是 <code>TBD</code> 的方式，对于开发人员、集成测试的要求会更高些，所以自己斟酌。</p>
+<hr>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://insights.thoughtworkers.org/gitflow-consider-harmful">GITFLOW有害论</a><br><a href="https://ruby-china.org/topics/29263">GIT 之我见 - 反驳 TW 洞见GITFLOW 有害论</a><br><a href="http://nvie.com/posts/a-successful-git-branching-model">A successful Git branching model</a><br><a href="http://paulhammant.com/2013/04/05/what-is-trunk-based-development">What is Trunk Based Development</a><br><a href="http://paulhammant.com/2013/03/11/legacy-app-rejuvenation">Legacy App Rejuvenation</a><br><a href="http://martinfowler.com/bliki/FeatureToggle.html">Feature Toggle</a><br><a href="http://www.martinfowler.com/articles/continuousIntegration.html">Continuous Integration</a> </p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/git/" class="tag">git</a><a href="/blog/tags/TBD/" class="tag">TBD</a><a href="/blog/tags/gitflow/" class="tag">gitflow</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/06/debugging-node-js-nightlies-with-chrome-devtools/" class="previous">使用 Chrome 调试 Node.js</a><a href="/blog/2016/06/editorconfig/" class="next">EditorConfig 介绍</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

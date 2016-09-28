@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>EditorConfig 介绍 · Pupa</title><meta name="description" content="EditorConfig 介绍 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">EditorConfig 介绍</h1><div class="entry-description"><p>基础设施真的很重要，尤其是在经历了几个烂项目之后。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Sunday, June 19th 2016, 11:47:10 pm" class="updated">Jun 19, 2016</time><em class="post-count">1,545 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><img src="/blog/2016/06/editorconfig/ill.png" alt="ill.png" title="">
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>由于最近比较关注前端工程化方面的事，所以一直在想着怎么把代码写好，怎么把一个项目维护好。</p>
+<p>以前一两个人干活的时候，没有觉得有什么问题，一个项目托管在 <code>git</code>，各自 <code>fork</code> 仓库修改提交 <code>merge</code>。</p>
+<p>并不需要什么规范化，因为两个人的代码风格都差不多，都遵循一些公认的规范，也就不需要强制要求什么。</p>
+<p>然而人多的时候，确实会是麻烦事，到处代码风格不一致，<code>tab</code>、空格混合用，强迫症总是会很不爽的想改成一致。</p>
+<p>以上，所以想要开始规范起代码，规范流程，像一个工程应该有的样子。</p>
+<h3 id="什么是-EditorConfig"><a href="#什么是-EditorConfig" class="headerlink" title="什么是 EditorConfig"></a>什么是 EditorConfig</h3><blockquote>
+<p>EditorConfig helps developers define and maintain consistent coding styles between different editors and IDEs.<br>The EditorConfig project consists of a file format for defining coding styles and a collection of text editor plugins that enable editors to read the file format and adhere to defined styles.<br>EditorConfig files are easily readable and they work nicely with version control systems.</p>
+</blockquote>
+<p>简单来说 <code>EditorConfig</code> 就是帮助开发者在不同的编辑器里统一代码格式的一套解决方案。</p>
+<h3 id="EditorConfig-的配置文件是怎样的？"><a href="#EditorConfig-的配置文件是怎样的？" class="headerlink" title="EditorConfig 的配置文件是怎样的？"></a>EditorConfig 的配置文件是怎样的？</h3><p>以下例子，<code>.editorconfig</code> 用来定义 <code>Python</code> 和 <code>JavaScript</code> 的尾行和缩进风格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"># EditorConfig is awesome: http://EditorConfig.org</div><div class="line"></div><div class="line"># top-most EditorConfig file</div><div class="line">root = true</div><div class="line"></div><div class="line"># Unix-style newlines with a newline ending every file</div><div class="line">[*]</div><div class="line">end_of_line = lf</div><div class="line">insert_final_newline = true</div><div class="line"></div><div class="line"># Matches multiple files with brace expansion notation</div><div class="line"># Set default charset</div><div class="line">[*.&#123;js,py&#125;]</div><div class="line">charset = utf-8</div><div class="line"></div><div class="line"># 4 space indentation</div><div class="line">[*.py]</div><div class="line">indent_style = space</div><div class="line">indent_size = 4</div><div class="line"></div><div class="line"># Tab indentation (no size specified)</div><div class="line">[Makefile]</div><div class="line">indent_style = tab</div><div class="line"></div><div class="line"># Indentation override for all JS under lib directory</div><div class="line">[lib/**.js]</div><div class="line">indent_style = space</div><div class="line">indent_size = 2</div><div class="line"></div><div class="line"># Matches the exact files either package.json or .travis.yml</div><div class="line">[&#123;package.json,.travis.yml&#125;]</div><div class="line">indent_style = space</div><div class="line">indent_size = 2</div></pre></td></tr></table></figure>
+<p>更多示例 <a href="https://github.com/editorconfig/editorconfig/wiki/Projects-Using-EditorConfig">那些使用 EditorConfig 的项目</a></p>
+<h3 id="在哪存放-EditorConfig-文件"><a href="#在哪存放-EditorConfig-文件" class="headerlink" title="在哪存放 EditorConfig 文件"></a>在哪存放 EditorConfig 文件</h3><p><code>EditorConfig</code> 插件会在打开文件的目录向上级目录查找 <code>.editorconfig</code> 文件，</p>
+<p>直到有一个配置文件 <code>root=true</code>，所以配置一般会存放在项目根目录。</p>
+<p><code>EditorConfig</code> 配置文件从上往下读取，并且路径最近的文件最后被读取，所以最接近代码文件的属性优先级最高。</p>
+<p>当然，一般一个项目也就一个配置文件</p>
+<h3 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h3><p><code>EditorConfig</code> 文件使用<a href="https://zh.wikipedia.org/wiki/INI%E6%96%87%E4%BB%B6">INI格式</a>，为了可以与 <a href="https://docs.python.org/2/library/configparser.html">Python ConfigParser Library</a> 兼容，<br>但是允许在 section names 中使用 ‘and’(不知道 section names 应该怎么翻译 )。<br>section names 是<a href="">全局</a><a href="https://en.wikipedia.org/wiki/Glob_(programming)文件路径，">https://en.wikipedia.org/wiki/Glob_(programming)文件路径，</a><br>类似于 <a href="http://manpages.ubuntu.com/manpages/intrepid/man5/gitignore.5.html#contenttoc2">gitignore</a>。</p>
+<blockquote>
+<p><code>/</code>: 路径分隔符<br><code>#</code> or <code>;</code> 注释，注释应该独占一行。</p>
+</blockquote>
+<p><code>EditorConfig</code> 文件使用 UTF-8 格式、CRLF 或 LF 作为换行符。</p>
+<h4 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h4><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*</code></td>
+<td>匹配除(/)之外的任意字符串</td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>匹配任意字符串</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>匹配任意单个字符</td>
+</tr>
+<tr>
+<td><code>[name]</code></td>
+<td>匹配 name 字符</td>
+</tr>
+<tr>
+<td><code>[!name]</code></td>
+<td>匹配任意除了 name 外的字符</td>
+</tr>
+<tr>
+<td><code>{s1,s2,s3}</code></td>
+<td>匹配任意给定的字符串 (version &gt;= 0.11.0)</td>
+</tr>
+</tbody>
+</table>
+<p>特殊字符使用 <code>\</code> 转义。</p>
+<h4 id="支持的属性"><a href="#支持的属性" class="headerlink" title="支持的属性"></a>支持的属性</h4><p class="tip">并不是所有的属性都已经被编辑器插件支持了，具体查看 <a href="https://github.com/editorconfig/editorconfig/wiki/EditorConfig-Properties">wiki</a> </p>
+
+
+<h3 id="编辑器支持情况"><a href="#编辑器支持情况" class="headerlink" title="编辑器支持情况"></a>编辑器支持情况</h3><p>具体查看官网 <a href="http://editorconfig.org/#download">http://editorconfig.org/#download</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://editorconfig.org/">EditorConfig</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/前端工程/" class="tag">前端工程</a><a href="/blog/tags/EditorConfig/" class="tag">EditorConfig</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/06/what-is-trunk-based-development/" class="previous">Trunk Based Development</a><a href="/blog/2016/06/chrome-sourcemap/" class="next">Chrome 浏览器的 source-map 功能</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

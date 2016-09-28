@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>前端如何 Mock 数据 · Pupa</title><meta name="description" content="前端如何 Mock 数据 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div itemprop="image" style="background-image: url(http://ww3.sinaimg.cn/large/7853084cgw1f7vueqesr5j21jk0uh446.jpg)" class="entry-cover"></div><div class="container"><div class="entry-header"><h1 class="entry-title">前端如何 Mock 数据</h1><div class="entry-description"><p>前端在开发的阶段，往往依赖后端的接口，应该如何减少甚至摆脱这种依赖呢。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Friday, September 16th 2016, 11:02:10 pm" class="updated">Sep 16, 2016</time><em class="post-count">2,544 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>首先应该做的是前后端分离，这里说的仅仅是开发分离，至于发布分离就更好了，</p>
+<p>但是会有坑，这里不展开说，毕竟只是考虑过，还没有实践过。</p>
+<p>前后端分离的明显例子就是单页面应用，后端只需要在首次打开页面的时候返回基本的 <code>html</code> 文件，</p>
+<p>用来加载 <code>js</code>, <code>css</code> 等静态资源(如果考虑首屏性能，可以考虑同构直出的方式)。</p>
+<p>接下来后端就只提供接口，其他剩下的事由前端来处理，包括模板渲染、路由跳转。</p>
+<p>那么，前端相对于后端只有接口的依赖，在开发阶段，只需要模拟接口数据，就可以不依赖后端进行开发了。</p>
+<h3 id="Mock-的方式"><a href="#Mock-的方式" class="headerlink" title="Mock 的方式"></a>Mock 的方式</h3><p>前端模拟 API 数据方式有很多。</p>
+<h4 id="手动模拟"><a href="#手动模拟" class="headerlink" title="手动模拟"></a>手动模拟</h4><p>最不用动脑的方式，在开发的时候，对于接口的调用，直接返回想要的数据，也就是写死数据，比如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> getData = (cb) =&gt; &#123;</div><div class="line">  <span class="comment">// 在模拟的时候不走接口请求直接返回数据</span></div><div class="line">  <span class="keyword">return</span> cb &amp;&amp; cb(&#123;a: <span class="number">1</span>&#125;)</div><div class="line">  <span class="comment">// 真实的请求</span></div><div class="line">  http.get(<span class="string">'/api/test'</span>, (res) =&gt; &#123;</div><div class="line">    cb &amp;&amp; cb(res)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式基本没啥优点，在和后端联调的时候，必须把模拟的数据删除，当然你也可以做个封装加个开关，但是还是很不方便。</p>
+<h4 id="重写-Ajax"><a href="#重写-Ajax" class="headerlink" title="重写 Ajax"></a>重写 <code>Ajax</code></h4><p>如果你用 <code>Ajax</code> 请求服务器接口，可以考虑重写 <code>Ajax</code> 方法，代理到 mock server。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> _ajax = $.ajax</div><div class="line">$.ajax = option =&gt; &#123;</div><div class="line">  option[<span class="string">'dataType'</span>] = <span class="string">'jsonp'</span></div><div class="line"></div><div class="line">  <span class="keyword">if</span> (option[<span class="string">'url'</span>]) &#123;</div><div class="line">    <span class="keyword">let</span> reg = <span class="regexp">/http[^\s]+com/i</span></div><div class="line">    <span class="comment">// 带域名的情况处理</span></div><div class="line">    <span class="keyword">if</span> (reg.test(option[<span class="string">'url'</span>])) &#123;</div><div class="line">      option[<span class="string">'url'</span>] = option[<span class="string">'url'</span>].replace(reg, <span class="string">''</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 将 url 全都代理到 mock server</span></div><div class="line">    option[<span class="string">'url'</span>] = <span class="string">'http://mock-server/'</span> + option[<span class="string">'url'</span>]</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  option[<span class="string">'type'</span>] = <span class="string">'GET'</span></div><div class="line"></div><div class="line">  <span class="keyword">return</span> _ajax(option)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样只需要在本地开发的时候，引入这段重写 <code>Ajax</code> 方法的脚本，就可以在开发阶段将 <code>API</code> 请求全部代理到指定的服务器。</p>
+<p>存在几个缺点：</p>
+<ol>
+<li>用这个方式的前提是，你应该有一个可以 mock 的服务，即调用 <code>API</code> 返回相应的数据。</li>
+<li>为了解决跨域，服务得支持 <code>jsonp</code>。</li>
+<li>所有 <code>Ajax</code> 请求都会被代理，也许我们存在部分请求不需要代理。</li>
+</ol>
+<h4 id="使用-Webpack-代理"><a href="#使用-Webpack-代理" class="headerlink" title="使用 Webpack 代理"></a>使用 Webpack 代理</h4><p><code>Webpack</code> 功能强大，不仅仅可以作为 <code>bundler</code> 工具，还可以用来代理请求。</p>
+<p>当然原理是启用了 <code>Node</code> 服务，作为中间代理。</p>
+<p>我们看下如何使用：</p>
+<figure class="highlight js"><figcaption><span>webpack.dev.config.js</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">proxy: &#123;</div><div class="line">  <span class="string">'/api'</span>: &#123;</div><div class="line">    target: <span class="string">'https://mock-server.com'</span>,</div><div class="line">    secure: <span class="literal">false</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上，在开发模式下，就可以将带 <code>/api</code> 的请求代理到指定的服务器。</p>
+<p>由于 <code>Webpack</code> 代理支持正则表达式，所以可以指定某些 <code>API</code> 使用代理，更多参数参考官网文档 <a href="http://webpack.github.io/docs/webpack-dev-server.html#proxy">webpack-dev-server</a>。</p>
+<p>由此，可以看到使用 <code>Webpack</code> 的方式，解决了使用 <code>Ajax</code> 的后两个缺点。</p>
+<h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5><p>当然使用 <code>Webpack</code> 还有需要注意的地方，也是我自己在使用的时候遇到的。</p>
+<p>本地开发一般情况都是使用 <code>http://localhost:port</code>，当代理的服务器使用 <code>https</code> 的时候，<br>也就是 <code>http -&gt; https</code> 的代理，这个时候需要设置 <code>agent</code> 参数。</p>
+<p>可以参考我在 <code>github</code> 写的列子 <a href="https://github.com/xwartz/koa-react-boilerplate">koa-react-boilerplate</a>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">proxy: &#123;</div><div class="line">  <span class="string">'/api'</span>: &#123;</div><div class="line">    target: <span class="string">'https://api.github.com/'</span>,</div><div class="line">    pathRewrite: &#123; <span class="string">'^/api'</span>: <span class="string">''</span> &#125;,</div><div class="line">    <span class="comment">// http -&gt; https 代理</span></div><div class="line">    <span class="comment">// see detail https://github.com/nodejitsu/node-http-proxy/blob/master/examples/http/proxy-http-to-https.js</span></div><div class="line">    agent: https.globalAgent,</div><div class="line">    headers: &#123;</div><div class="line">      host: <span class="string">'api.github.com'</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是一个显示 <code>github</code> 用户 star 信息的例子，将 <code>/api</code> 请求代理到 <code>https://api.github.com/</code>。</p>
+<p>关于更多的 <code>https -&gt; http</code> 与 <code>https -&gt; https</code> 可以参考 <a href="https://github.com/nodejitsu/node-http-proxy#using-https">node-http-proxy</a>。</p>
+<h4 id="Nginx-代理"><a href="#Nginx-代理" class="headerlink" title="Nginx 代理"></a>Nginx 代理</h4><p>Nginx 的反向代理功能还是在现在的工作中使用了，才有所了解。</p>
+<figure class="highlight"><figcaption><span>nginx.conf </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">  listen 80;</div><div class="line">  # 把所有 uri 以 /api 开头的转发到接口服务器</div><div class="line">  location /api &#123;</div><div class="line">    proxy_pass http://127.0.0.1:4000;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Nginx 了解的并不是很多，就不展开讨论了，还望人指点。</p>
+<h3 id="Mock-Server"><a href="#Mock-Server" class="headerlink" title="Mock Server"></a>Mock Server</h3><p>以上，说的都是如何模拟数据，方便本地开发，但是代理接口请求之后，还需要接受该请求的服务器。</p>
+<p>所以一个完整的数据模拟，应该包含 Mock Server。</p>
+<h4 id="可以使用的-Mock-Server"><a href="#可以使用的-Mock-Server" class="headerlink" title="可以使用的 Mock Server"></a>可以使用的 Mock Server</h4><p>存在很多服务，可以使用，有以下推荐：</p>
+<ol>
+<li><a href="https://apiary.io/">apiary</a>: 可以生成文档，但是非个人使用得付费。</li>
+<li><a href="https://github.com/thx/RAP">RAP</a>: 功能貌似很强大，阿里妈妈MUX团队出品。</li>
+<li><a href="https://github.com/typicode/json-server">json-server</a>: Node 编写，适合前端人员使用，但不能产生文档。</li>
+</ol>
+<h4 id="构建-Mock-Server"><a href="#构建-Mock-Server" class="headerlink" title="构建 Mock Server"></a>构建 Mock Server</h4><p>综上，有不少提供 mock 的服务，但还是无法完全满足自己的需求，我认为 Mock Server 应该包含以下几点功能：</p>
+<ol>
+<li>友好的交互界面</li>
+<li>录入/保存接口数据</li>
+<li>分项目存储接口数据，适合不同团队使用</li>
+<li>响应请求，返回相应数据</li>
+<li>生成接口文档，方便前后端查阅</li>
+<li>支持接口自动化测试<br>….</li>
+</ol>
+<p>以上，准备自己撸一个 <a href="https://github.com/xwartz/lula">Lula</a> 玩玩。</p>
+<p>另外也可以关注下，下面列出的链接。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://cnodejs.org/topic/567d612c435249f221f53a89">用于生成API的文档的方案总结</a><br><a href="https://www.zhihu.com/question/35436669">你是如何构建 Web 前端 Mock Server 的</a><br><a href="https://zhuanlan.zhihu.com/p/20669111?refer=purerender">React 同构实践与思考</a><br><a href="https://github.com/typicode/json-server">json-server</a><br><a href="https://apiary.io/">apiary</a><br><a href="https://github.com/thx/RAP">RAP</a><br><a href="http://www.restran.net/2015/08/19/nginx-frontend-helper/">Nginx 是前端工程师的好帮手</a><br><a href="https://github.com/nodejitsu/node-http-proxy#using-https">node-http-proxy</a><br><a href="https://github.com/xwartz/koa-react-boilerplate">koa-react-boilerplate</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/code/" class="tag">code</a><a href="/blog/tags/mock/" class="tag">mock</a><a href="/blog/tags/proxy/" class="tag">proxy</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/09/casperjs/" class="previous">CasperJS</a><a href="/blog/2016/09/need-to-plan/" class="next">Plan</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

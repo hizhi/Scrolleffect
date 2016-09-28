@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>使用 Chrome 调试 Node.js · Pupa</title><meta name="description" content="使用 Chrome 调试 Node.js - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">使用 Chrome 调试 Node.js</h1><div class="entry-description"><p>最近谷歌程序员动作挺大的，毕竟 Web 发家的，就是厉害啊。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Saturday, June 25th 2016, 12:02:11 pm" class="updated">Jun 25, 2016</time><em class="post-count">852 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>看到 <code>Paul Irish</code> 更新的 <code>medium</code> 文章 <a href="https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.f7ybt5s2m">Debugging Node.js Nightlies with Chrome DevTools</a>，试了一发，顺便翻译下教程。</p>
+<img src="/blog/2016/06/debugging-node-js-nightlies-with-chrome-devtools/debug.png" alt="debug.png" title="">
+<p>Node.js Nightlies 版本已经支持使用 <code>Chrome</code> 浏览器来调试了，查看 <a href="https://github.com/nodejs/node/pull/6792">pull</a>。</p>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>下面是关于如何使用 <code>Chrome</code> 来调试 <code>Node.js</code> 的教程</p>
+<h4 id="1-下载-Node-js-Nightly-版本"><a href="#1-下载-Node-js-Nightly-版本" class="headerlink" title="1. 下载 Node.js Nightly 版本"></a>1. 下载 Node.js Nightly 版本</h4><p>使用 <code>Paul Irish</code> 写好的脚本 <a href="https://gist.github.com/paulirish/a02f4aa2b5ce69f5c269d18e74f57ab3">https://gist.github.com/paulirish/a02f4aa2b5ce69f5c269d18e74f57ab3</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">curl -O <span class="string">"https://gist.githubusercontent.com/paulirish/a02f4aa2b5ce69f5c269d18e74f57ab3/raw/36003214efb09259f86061656ac04ac846ff9c2f/download-node-nightly.sh"</span></div><div class="line">bash download-node-nightly.sh</div></pre></td></tr></table></figure>
+<p>或者你可以从这里下载想要的版本 <a href="https://nodejs.org/download/nightly/">https://nodejs.org/download/nightly/</a></p>
+<h4 id="2-设置别名"><a href="#2-设置别名" class="headerlink" title="2. 设置别名"></a>2. 设置别名</h4><p>将下载的 Node.js 放到任意目录，在 <code>.zshrc</code> 中设置别名 <code>node-nightly</code>，避免与正常使用的 <code>Node.js</code> 冲突。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">alias</span> node-nightly=<span class="string">'~/bin/node-v7.0.0-nightly20160621ecc48a154d-darwin-x64/bin/node'</span></div></pre></td></tr></table></figure>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node-nightly --inspect index.js</div></pre></td></tr></table></figure>
+<p>或者使用 <code>--debug-brk</code> 参数，在启动后第一行开始断点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node-nightly --inspect --debug-brk index.js</div></pre></td></tr></table></figure>
+<h4 id="在-Chrome-浏览器里打开-URL"><a href="#在-Chrome-浏览器里打开-URL" class="headerlink" title="在 Chrome 浏览器里打开 URL"></a>在 Chrome 浏览器里打开 URL</h4><p>执行上一步操作，会在终端输出 <code>URL</code>，在 <code>Chrome</code> 中打开这个地址。</p>
+<p>以上，你就可以像调试网页一样调试 <code>Node.js</code> 代码了。</p>
+<p>Enjoy.</p>
+<h3 id="其他调试方法"><a href="#其他调试方法" class="headerlink" title="其他调试方法"></a>其他调试方法</h3><p>至于其他的调试方法，知道的大概有下面这些：</p>
+<ol>
+<li><p><a href="https://nodejs.org/api/debugger.html">Debugger</a></p>
+</li>
+<li><p><a href="https://github.com/node-inspector/node-inspector">node-inspector</a></p>
+</li>
+<li><p><a href="https://github.com/Jam3/devtool">devtool</a>：基于 <code>Electron</code></p>
+</li>
+<li><p>还有各种编辑器自带的</p>
+</li>
+</ol>
+<p>关于比较可以看这个评论 <a href="https://github.com/nodejs/node/pull/6792#issuecomment-219756916">issuecomment-219756916</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.f7ybt5s2m">Debugging Node.js Nightlies with Chrome DevTools</a></p>
+<p><a href="https://github.com/nodejs/node/pull/6792">Add v8_inspector support</a></p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/devTools/" class="tag">devTools</a><a href="/blog/tags/nodejs/" class="tag">nodejs</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/07/dali/" class="previous">大理</a><a href="/blog/2016/06/what-is-trunk-based-development/" class="next">Trunk Based Development</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

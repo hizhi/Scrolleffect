@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>前端单元测试 Jenkins 集成 · Pupa</title><meta name="description" content="前端单元测试 Jenkins 集成 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">前端单元测试 Jenkins 集成</h1><div class="entry-description"><p>学习下 Jenkins，写个配置教程吧。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, August 2nd 2016, 11:15:18 am" class="updated">Aug 2, 2016</time><em class="post-count">803 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><img src="/blog/2016/08/jenkins-ci-unit-test/jenkins.png" alt="jenkins.png" title="">
+<p>之前写过几篇关于前端<a href="http://xwartz.github.io/pupa/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试的文章</a>，现在结合项目简单写一下如何与 Jenkins 搭配集成。</p>
+<p>关于如何自己搭建 Jenkins 服务就不说了，直接看<a href="https://jenkins.io">官方教程</a>。</p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><img src="/blog/2016/08/jenkins-ci-unit-test/0.png" alt="0.png" title="">
+<p>填充一下项目信息</p>
+<img src="/blog/2016/08/jenkins-ci-unit-test/2.png" alt="2.png" title="">
+<h3 id="配置-gitlab"><a href="#配置-gitlab" class="headerlink" title="配置 gitlab"></a>配置 gitlab</h3><h3 id="给-Jenkins-账户添加权限"><a href="#给-Jenkins-账户添加权限" class="headerlink" title="给 Jenkins 账户添加权限"></a>给 Jenkins 账户添加权限</h3><img src="/blog/2016/08/jenkins-ci-unit-test/1.png" alt="1.png" title="">
+<p>权限选择可以参考文档 <a href="http://docs.gitlab.com/ee/user/permissions.html#gitlab-ci">http://docs.gitlab.com/ee/user/permissions.html#gitlab-ci</a></p>
+<h3 id="增加-Web-hooks"><a href="#增加-Web-hooks" class="headerlink" title="增加 Web hooks"></a>增加 Web hooks</h3><img src="/blog/2016/08/jenkins-ci-unit-test/7.png" alt="7.png" title="">
+<p>根据自身需要选择触发事件。</p>
+<h3 id="选择-Build-分支以及-Build-Triggers"><a href="#选择-Build-分支以及-Build-Triggers" class="headerlink" title="选择 Build 分支以及 Build Triggers"></a>选择 Build 分支以及 Build Triggers</h3><img src="/blog/2016/08/jenkins-ci-unit-test/3.png" alt="3.png" title="">
+<p>根据自身需要选择。</p>
+<h3 id="编写-Build-Shell"><a href="#编写-Build-Shell" class="headerlink" title="编写 Build Shell"></a>编写 Build Shell</h3><img src="/blog/2016/08/jenkins-ci-unit-test/4.png" alt="4.png" title="">
+<p>一般根据 <code>package.json</code> 的 <code>scripts</code> 写就好了。</p>
+<p>关于测试脚本编写可以参考 <a href="https://github.com/xwartz/webpack-karma-mocha">https://github.com/xwartz/webpack-karma-mocha</a></p>
+<h3 id="增加-Post-build-Actions"><a href="#增加-Post-build-Actions" class="headerlink" title="增加 Post-build Actions"></a>增加 Post-build Actions</h3><img src="/blog/2016/08/jenkins-ci-unit-test/5.png" alt="5.png" title="">
+<p>我这里用了<a href="https://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin">HTML的插件</a>，会生成 HTML 报告。</p>
+<p>其他一些插件可以查看这里 <a href="https://wiki.jenkins-ci.org/display/JENKINS/Plugins">Plugins</a>，可以增加点邮件报告等，根据自己需求来吧。</p>
+<h3 id="生成测试覆盖率"><a href="#生成测试覆盖率" class="headerlink" title="生成测试覆盖率"></a>生成测试覆盖率</h3><img src="/blog/2016/08/jenkins-ci-unit-test/6.png" alt="6.png" title="">
+<p>最后生成的覆盖率类似这样子的。</p>
+<h3 id="Over"><a href="#Over" class="headerlink" title="Over"></a>Over</h3><p>这里只是简单介绍下怎么配合 <code>Gitlab</code> 仓库使用，其他一些东西还是需要自己去研究研究，<code>Jenkins</code> 在公司内部搭建服务使用还是不错的。</p>
+<p>如果你的项目是开源的话，推荐使用 <a href="https://travis-ci.org/">travis-ci</a>，或者花钱支持私有仓库。<br>测试覆盖率搭配 <a href="https://codecov.io/">CodeCover</a>，还可以在自己的开源项目上增加几个 logo，给使用的人增加点信心。</p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/单元测试/" class="tag">单元测试</a><a href="/blog/tags/code/" class="tag">code</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/08/javascript-inheritance/" class="previous">JavaScript 继承</a><a href="/blog/2016/07/keng/" class="next">没那么简单</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>没那么简单 · Pupa</title><meta name="description" content="没那么简单 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">没那么简单</h1><div class="entry-description"><p>挖的坑，总是要有人来填的，不是现在填，就是以后付出更多代价。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, July 12th 2016, 12:41:56 am" class="updated">Jul 12, 2016</time><em class="post-count">897 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>来新公司之后，就一直在填坑，重复代码，代码复用性很差，代码无规范，缩进不一致，甚至 tab 和空格混用。。。</p>
+<p>一遇上和后端联调、或者发布的时候，就到半夜。。。</p>
+<p>反正各种能见到的坑，大概都算是见到了，反正坑就在未知的前方，不离不弃。。。</p>
+<p>在前公司的时候，接手项目时，幸好前人的代码风格不错，然后一直照着这风格，让我有一个良好的编程风格。</p>
+<p>一直没有在编辑器里加 <code>eslint</code> 这类的检测工具，也没什么感知，一直用 <code>git</code> 分支管理也很清晰，</p>
+<p>提交了代码相互 code review 一下也能保证风格的统一，<code>commit</code> 清晰。</p>
+<p>开发调试也很方便，单页面应用，模块化，代码复用率高，REST API，模板前端控制，常重构、代码规范统一…</p>
+<p>现在回想，曾经很美。</p>
+<p>所以一路走来，感觉都很不错，学到不少东西，享受到了前端社区这几年带来的便利。</p>
+<p>当然发布也是比较坑，前后端不能分开单独发布，后端 <code>Java</code>，基础模板 <code>VM</code>(其他非单页面应用)，<br>发布时，前端 <code>gulp</code> 构建，等待后端 <code>Java</code> 编译发布，发布效率很低。</p>
+<p>后来也尝试了 <code>Node.js</code> 中间层的前后端分离方案，<code>Node.js</code> 控制模板渲染，<br><code>Java</code> 层只提供接口，前端的接口调用直接指向 <code>Java</code>(这其实在单页面应用时已经做到了)。</p>
+<p>这样就可以分开单独发布了。</p>
+<p>然而当时技能有限，遇到的很多坑填不上…</p>
+<p>一些原因，最后我也走了，最终没能看到上线的样子。</p>
+<p>现在回想，其实当时可以利用一些朋友圈的资源得到些帮助，也许功力就大增了。</p>
+<p>当然，不入现在的坑，可能也体会不到基础架构对后期维护的重要性，可能也体会不到一个完善的 IDE 对于开发的重要性，</p>
+<p>团队的编程习惯、代码风格对于成员的影响，后续的维护等等。</p>
+<p>像 <code>eslint</code>、<code>jslint</code> 这类的 <code>lint</code> 工具在开发、重构时能带来多少好处。</p>
+<p>我想以后不配置好 <code>eslint</code> 我都不愿意写代码了吧。</p>
+<p>前端什么时候能有一个更好的编辑器呢？</p>
+<ul>
+<li>配置 IDE 环境</li>
+<li><code>eslint</code></li>
+<li><del><code>pre-commit</code></del></li>
+<li>老代码 <a href="https://github.com/xwartz/ESLint-Fix">eslint-fix</a></li>
+<li>重构、模块化</li>
+<li><a href="https://github.com/xwartz/webpack-karma-mocha">单元测试</a></li>
+<li>集成测试</li>
+<li>构建脚手架</li>
+<li>写文档、写注释</li>
+</ul>
+<p>慢慢在做一些基础性的东西，填前人留下的坑。</p>
+<p>体会到痛苦之后，才会想怎么提高效率，减小维护成本，怎么工程化。</p>
+<p>基础架构、前后端分离、性能优化、组件化、构建方案、发布流程、静态资源管理、测试、监控…还有很多要学习、思考的。</p>
+<p>前端没那么简单。</p>
+<p>以上，最近不顺，吐槽一番。</p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/前端工程/" class="tag">前端工程</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/08/jenkins-ci-unit-test/" class="previous">前端单元测试 Jenkins 集成</a><a href="/blog/2016/07/reading-http/" class="next">读《图解HTTP》</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>

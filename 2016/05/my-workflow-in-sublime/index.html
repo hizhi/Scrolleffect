@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en" prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>前端工程化之IDE搭建 · Pupa</title><meta name="description" content="前端工程化之IDE搭建 - xwartz"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/blog/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="/blog/style/main.css?v=1.0.1"></head><body class="pupa"><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div itemprop="image" style="background-image: url(http://ww3.sinaimg.cn/large/65e4f1e6gw1f7gb97vyg6j21kw0zktq4.jpg)" class="entry-cover"></div><div class="container"><div class="entry-header"><h1 class="entry-title">前端工程化之IDE搭建</h1><div class="entry-description"><p>起了这么个题，其实主要是记录下自己最近常用的一些插件、工具。</p></div><div class="entry-meta"><time itemprop="datePublished" datetime="Sunday, May 1st 2016, 6:06:39 pm" class="updated">May 1, 2016</time><em class="post-count">2,246 words</em></div></div><div class="entry-content"><p>在某个夜晚，博主已经将博客迁移到<a href="http://xwartz.xyz/blog">http://xwartz.xyz</a></p></div><div itemprop="articleBody" class="entry-content"><p>最近在做代码重构，看到很多以前写的代码乱七八糟的，尤其是代码格式不统一规范，看起来特别累。</p>
+<p>在做重构的时候，难免要更改很大一块代码，可能涉及到很多逻辑修改，这个时候没有好的IDE来支持，很容易出错而不知。</p>
+<p>而且重构时，总想着把代码格式也统一一下，比较好看。所以决定好好搞搞开发环境，提高生产效率，减少低级错误。</p>
+<p>这篇文章主要记录下，自己的正在使用的开发环境搭建。</p>
+<h2 id="关于前端工程"><a href="#关于前端工程" class="headerlink" title="关于前端工程"></a>关于前端工程</h2><p>关于软件工程的解释可以看维基百科的说明：<a href="https://zh.wikipedia.org/wiki/软件工程">软件工程</a>。</p>
+<p><strong>软件工程包括两种构面：软件开发技术和软件项目管理：</strong></p>
+<blockquote>
+<p>软件开发技术：软件开发方法学、软件工具和软件工程环境<br>软件项目管理：软件度量、项目估算、进度控制、人员组织、配置管理、项目项目等。</p>
+</blockquote>
+<p>上面是引用维基百科上的一段话，我主要讲下软件工具吧，工程环境应该算是项目的搭建了吧，比如：工程结构。</p>
+<p>那么前端工程呢，前端其实提起工程化，应该是最近几年才流行的，以前大多都是被当成切图的了，或者设计师兼职？ 前端最近几年的社区活跃，牛人们搞出了各种框架、工具，使得前端可以做更多复杂的事。</p>
+<p>由于我之前一直在开发单页面应用，其实早已感受到前端构建的复杂 web 应用，工程量不亚于一般的传统软件。因此，前端应该开始规范起来，思考怎么工程化。</p>
+<p>好了，不再扯这些了，待更牛逼的时候，再扯扯…</p>
+<h2 id="IDE搭建"><a href="#IDE搭建" class="headerlink" title="IDE搭建"></a>IDE搭建</h2><h3 id="编辑器选择"><a href="#编辑器选择" class="headerlink" title="编辑器选择"></a>编辑器选择</h3><p>其实前端可用的编辑器还挺多的，我用过的就有这些，也算比较主流了，<a href="https://notepad-plus-plus.org/">Nodepad++</a>, <a href="https://atom.io/">Atom</a>, <a href="http://code.visualstudio.com/">VSCode</a>, <a href="https://www.jetbrains.com/webstorm/">WebStorm</a>, <a href="https://www.sublimetext.com/">Sublime</a>。</p>
+<p><code>Nodepad++</code> 以前上 J2EE 课程的时候用过，后来几年一直没有用过了，<br><code>Atom</code> 刚出来的时候就用上了，<br><code>VSCode</code> 也是刚出来就马上用了下，和 <code>Atom</code> 一个毛病，就是用 <code>Electron</code> 编写的，性能上不行，打开大文件的时候会卡一会，曾经经常挂掉，<br><code>WebStorm</code> 试用过一段时间，还是非常不错的，就是丑了些，还有费用需要年费… 所以到现在一直使用的就是 <code>Sublime</code> 了。</p>
+<p><img src="http://ww4.sinaimg.cn/large/65e4f1e6gw1f7gbqwaqnvj21kw0tudnf.jpg" alt="WebStorm Features"></p>
+<p>但是要说的上是IDE的话，感觉只有 <a href="https://www.jetbrains.com/webstorm/">WebStorm</a> 算得上了，<a href="http://code.visualstudio.com/">VSCode</a> 也还不错了，但是功能并没有那么强大。</p>
+<p>关于 <code>WebStorm</code> 更多信息可以看下官方的 <a href="https://www.jetbrains.com/webstorm/features/">features</a> 页面。如果你刚好喜欢 <code>Webstore</code> 的话，那就选择它吧，也就不需要后面那么多的折腾了。</p>
+<h3 id="Sublime"><a href="#Sublime" class="headerlink" title="Sublime"></a>Sublime</h3><p>关于怎么装插件的就不说了，插件都可以到这个页面搜索 <a href="https://packagecontrol.io/">https://packagecontrol.io/</a>。<br>一些常用的插件，为了自己方便都在 <a href="https://github.com/xwartz/Sublime-Backup">github</a> 上做了备份。</p>
+<p>常用的有这些：<code>Emmet</code>, <code>DocBlockr</code>, <code>Git</code>, <code>GitGutter</code>, <code>Bracket Highlighter</code>, <code>Tag</code>, <code>Autocomplete</code>, <code>Color Highlighter</code>, <code>Reactjs</code> …</p>
+<h3 id="Editorconfig"><a href="#Editorconfig" class="headerlink" title="Editorconfig"></a>Editorconfig</h3><p>为了让代码风格在不同IDE下保持一致，应该在项目目录下配置 <a href="http://editorconfig.org/">.editorconfig</a></p>
+<p>这是一般常用的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># editorconfig.org</div><div class="line"></div><div class="line">root = true</div><div class="line"></div><div class="line">[*]</div><div class="line">indent_style = space</div><div class="line">indent_size = 2</div><div class="line">end_of_line = lf</div><div class="line">charset = utf-8</div><div class="line">trim_trailing_whitespace = true</div><div class="line">insert_final_newline = true</div><div class="line"></div><div class="line">[*.md]</div><div class="line">trim_trailing_whitespace = false</div></pre></td></tr></table></figure>
+<h3 id="Lint"><a href="#Lint" class="headerlink" title="Lint"></a>Lint</h3><p>对于代码重构的话，肯定少不了 <code>lint</code>。目前比较流行的主要有 <a href="http://jshint.com/docs/">JSLint</a> 和 <a href="http://eslint.org/">ESLint</a>，我选择 <code>ESLint</code>，因为它更灵活，可配置性高，并且有社区活跃用户在维持。 </p>
+<p>使用 <code>ESLint</code> 需要安装 <a href="http://nodejs.org/">Node.js</a>，嗷，<code>Node.js</code> 6.0 已经支持93%(记得是)的特性了，<br>真棒！以后写 <code>Node.js</code> 可以少用 <code>Babel</code> 了。<br>然后全局安装 <code>ESLint</code>, <code>npm i -g eslint</code>。那么已经可以在命令行里使用了。</p>
+<p>要在 <code>Sublime</code> 中配置的话，需要安装插件 <a href="https://packagecontrol.io/packages/SublimeLinter">SublimeLinter</a> 和 <a href="https://github.com/roadhump/SublimeLinter-eslint">SublimeLinter-contrib-eslint</a>,<br>然后在对应的项目下创建 <code>eslintrc</code> Configuring 文件，配置自己的 <code>rules</code>, 具体可以看官方文档<a href="http://eslint.org/docs/user-guide/configuring">user-guide</a>，然后代码就会得到 <code>lint</code> 提示了。</p>
+<p>如果用的 <code>ES2015</code> 可以将 <code>syntax_map</code> 配置改为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">"javascript (babel)": "javascript",</div></pre></td></tr></table></figure>
+<p>总之还是应该多看官方文档，根据自己的项目情况去配置环境。</p>
+<h3 id="Code-Style"><a href="#Code-Style" class="headerlink" title="Code Style"></a>Code Style</h3><p>目前 <code>JavaScript</code> 的代码规范也有很多份，比较流行的有 <a href="https://google.github.io/styleguide/javascriptguide.xml">Google</a>, <a href="https://github.com/airbnb/javascript">AirBnb</a>, <a href="https://github.com/feross/standard">Standard</a>。推荐选择 <code>Standard</code>，不喜欢写分号，以下是它的规则</p>
+<h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules:"></a><a href="https://github.com/feross/standard#rules">Rules</a>:</h4><blockquote>
+<ul>
+<li><strong>2 spaces</strong> – for indentation</li>
+<li><strong>Single quotes for strings</strong> – except to avoid escaping</li>
+<li><strong>No unused variables</strong> – this one catches <em>tons</em> of bugs!</li>
+<li><strong>No semicolons</strong> – <a href="http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding">It’s</a> <a href="http://inimino.org/~inimino/blog/javascript_semicolons">fine.</a> <a href="https://www.youtube.com/watch?v=gsfbh17Ax9I">Really!</a></li>
+<li><strong>Never start a line with <code>(</code> or <code>[</code></strong><ul>
+<li>This is the <strong>only</strong> gotcha with omitting semicolons – <em>automatically checked for you!</em></li>
+<li><a href="https://github.com/feross/standard/blob/master/RULES.md#semicolons">More details</a></li>
+</ul>
+</li>
+<li><strong>Space after keywords</strong> <code>if (condition) { ... }</code></li>
+<li><strong>Space after function name</strong> <code>function name (arg) { ... }</code></li>
+<li>Always use <code>===</code> instead of <code>==</code> – but <code>obj == null</code> is allowed to check <code>null || undefined</code>.</li>
+<li>Always handle the node.js <code>err</code> function parameter</li>
+<li>Always prefix browser globals with <code>window</code> – except <code>document</code> and <code>navigator</code> are okay<ul>
+<li>Prevents accidental use of poorly-named browser globals like <code>open</code>, <code>length</code>,<br><code>event</code>, and <code>name</code>.</li>
+</ul>
+</li>
+<li><strong>And <a href="https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style">more goodness</a></strong> – <em>give <code>standard</code> a try today!</em></li>
+</ul>
+</blockquote>
+<p>每次开始一个项目的时候，需要 <code>eslint --init</code>，然后选择 <code>Standard</code>，再安装一些依赖模块就 OK 了。</p>
+<p><img src="http://ww2.sinaimg.cn/large/65e4f1e6gw1f7gbqvj7hcj21kw0zkdm8.jpg" alt="sublime lint"></p>
+<p>还可以在 <code>github</code> 项目中很方便的加上它的 Logo </p>
+<p><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"> </p>
+<h3 id="Over"><a href="#Over" class="headerlink" title="Over"></a>Over</h3><p>好了，基本上的配置也就这些了，虽然还不够强大，毕竟对于js这种弱类型的语言静态分析没那么容易，希望有更好的IDE出现，希望 <code>VSCode</code> 的性能问题能搞定。</p>
+<p>前端是个很杂的玩意，总是需要时间去积累，碰到了问题多看官方文档，多多使用谷歌，好在前端的社区足够活跃。</p></div><div class="entry-extra"><div class="entry-tags"><a href="/blog/tags/前端工程/" class="tag">前端工程</a></div></div></div></article></div><div class="paginator"><a href="/blog/2016/05/2016-05-24/" class="previous">24</a></div></main><footer><div class="copyright container"><p>© Copyright 2015 - 2016 by <a href="http://github.com/xwartz">xwartz</a>.</p></div></footer><script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Pupa");
+ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src ="//hm.baidu.com/hm.js?b9e5254ddb0a9c4c4cd158df0d05a54c";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="https://cdn.rawgit.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script>window.onload = function() { window.pageAccelerator && pageAccelerator() }</script></body></html>
